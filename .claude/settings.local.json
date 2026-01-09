@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:hellowshop.com)",
+      "Bash(npm run build:*)",
+      "Bash(npm run lint:*)",
+      "Bash(git add:*)",
+      "Bash(git commit -m \"$\\(cat <<''EOF''\nfeat: HellowShop 리뉴얼 데모 페이지 구현\n\n- 반응형 헤더/네비게이션 \\(모바일 메뉴 포함\\)\n- 상품 카드 컴포넌트 \\(할인율, NEW/BEST 배지\\)\n- 작품별 필터 및 카테고리 필터링\n- 자동 슬라이드 히어로 배너\n- 실제 hellowshop.com 상품 이미지 적용\n- 카테고리 구조 재설계 \\(중복 제거\\)\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>\nEOF\n\\)\")"
+    ]
+  }
+}

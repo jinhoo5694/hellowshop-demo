@@ -1,0 +1,268 @@
+export interface Product {
+  id: string;
+  name: string;
+  originalPrice: number;
+  salePrice?: number;
+  imageUrl: string;
+  category: string;
+  categoryId: string;
+  tags: string[];
+  isNew?: boolean;
+  isBest?: boolean;
+}
+
+// 실제 hellowshop.com 이미지 기반 상품 데이터
+export const products: Product[] = [
+  // 코스튬 카테고리
+  {
+    id: 'costume-001',
+    name: '원신 라이덴 쇼군 코스튬 풀세트',
+    originalPrice: 189000,
+    salePrice: 142000,
+    imageUrl: 'https://hellowshop.com/shopimages/hellozzang/0010090004593.jpg',
+    category: '코스튬',
+    categoryId: 'costume',
+    tags: ['원신', '라이덴'],
+    isNew: true,
+    isBest: true,
+  },
+  {
+    id: 'costume-002',
+    name: '귀멸의 칼날 카마도 탄지로 대원복',
+    originalPrice: 98000,
+    salePrice: 68000,
+    imageUrl: 'https://hellowshop.com/shopimages/hellozzang/0010090004583.jpg',
+    category: '코스튬',
+    categoryId: 'costume',
+    tags: ['귀멸의 칼날', '탄지로'],
+    isBest: true,
+  },
+  {
+    id: 'costume-003',
+    name: '블루아카이브 아로나 교복 세트',
+    originalPrice: 128000,
+    salePrice: 98000,
+    imageUrl: 'https://hellowshop.com/shopimages/hellozzang/0010090004573.jpg',
+    category: '코스튬',
+    categoryId: 'costume',
+    tags: ['블루아카이브', '아로나'],
+    isNew: true,
+  },
+  {
+    id: 'costume-004',
+    name: '주술회전 고죠 사토루 교복 세트',
+    originalPrice: 110000,
+    salePrice: 85000,
+    imageUrl: 'https://hellowshop.com/shopimages/hellozzang/0010020014253.jpg',
+    category: '코스튬',
+    categoryId: 'costume',
+    tags: ['주술회전', '고죠'],
+    isBest: true,
+  },
+  {
+    id: 'costume-005',
+    name: '스파이패밀리 아냐 포저 교복',
+    originalPrice: 78000,
+    imageUrl: 'https://hellowshop.com/shopimages/hellozzang/0010090004563.jpg',
+    category: '코스튬',
+    categoryId: 'costume',
+    tags: ['스파이패밀리', '아냐'],
+  },
+  {
+    id: 'costume-006',
+    name: '최애의 아이 호시노 아이 무대의상',
+    originalPrice: 168000,
+    salePrice: 128000,
+    imageUrl: 'https://hellowshop.com/shopimages/hellozzang/0010020014243.jpg',
+    category: '코스튬',
+    categoryId: 'costume',
+    tags: ['최애의 아이', '호시노아이'],
+    isNew: true,
+  },
+  {
+    id: 'costume-007',
+    name: '원신 각청 코스프레 의상',
+    originalPrice: 145000,
+    salePrice: 118000,
+    imageUrl: 'https://hellowshop.com/shopimages/hellozzang/0010100008833.jpg',
+    category: '코스튬',
+    categoryId: 'costume',
+    tags: ['원신', '각청'],
+    isBest: true,
+  },
+  {
+    id: 'costume-008',
+    name: '원신 감우 코스프레 풀세트',
+    originalPrice: 175000,
+    salePrice: 135000,
+    imageUrl: 'https://hellowshop.com/shopimages/hellozzang/0010100008203.jpg',
+    category: '코스튬',
+    categoryId: 'costume',
+    tags: ['원신', '감우'],
+  },
+
+  // 위그 카테고리
+  {
+    id: 'wig-001',
+    name: '원신 카미사토 아야카 롱 위그',
+    originalPrice: 45000,
+    salePrice: 35000,
+    imageUrl: 'https://hellowshop.com/shopimages/hellozzang/1250040003273.jpg',
+    category: '위그',
+    categoryId: 'wig',
+    tags: ['원신', '아야카'],
+    isBest: true,
+  },
+  {
+    id: 'wig-002',
+    name: '하츠네 미쿠 트윈테일 위그 120cm',
+    originalPrice: 52000,
+    salePrice: 42000,
+    imageUrl: 'https://hellowshop.com/shopimages/hellozzang/1250040002483.jpg',
+    category: '위그',
+    categoryId: 'wig',
+    tags: ['보컬로이드', '미쿠'],
+    isBest: true,
+  },
+  {
+    id: 'wig-003',
+    name: '붕괴: 스타레일 카프카 숏 위그',
+    originalPrice: 38000,
+    imageUrl: 'https://hellowshop.com/shopimages/hellozzang/1250040002473.jpg',
+    category: '위그',
+    categoryId: 'wig',
+    tags: ['붕괴스타레일', '카프카'],
+    isNew: true,
+  },
+  {
+    id: 'wig-004',
+    name: '귀멸의 칼날 렌고쿠 쿄주로 위그',
+    originalPrice: 35000,
+    salePrice: 28000,
+    imageUrl: 'https://hellowshop.com/shopimages/hellozzang/1250040002463.jpg',
+    category: '위그',
+    categoryId: 'wig',
+    tags: ['귀멸의 칼날', '렌고쿠'],
+  },
+  {
+    id: 'wig-005',
+    name: '원신 나히다 그린 롱 위그',
+    originalPrice: 48000,
+    salePrice: 38000,
+    imageUrl: 'https://hellowshop.com/shopimages/hellozzang/1250120000873.jpg',
+    category: '위그',
+    categoryId: 'wig',
+    tags: ['원신', '나히다'],
+    isNew: true,
+  },
+  {
+    id: 'wig-006',
+    name: '주술회전 이타도리 핑크 위그',
+    originalPrice: 32000,
+    imageUrl: 'https://hellowshop.com/shopimages/hellozzang/1250010001043.jpg',
+    category: '위그',
+    categoryId: 'wig',
+    tags: ['주술회전', '이타도리'],
+  },
+
+  // 소품/악세서리 카테고리
+  {
+    id: 'acc-001',
+    name: '귀멸의 칼날 탄지로 귀걸이 한쌍',
+    originalPrice: 15000,
+    salePrice: 9900,
+    imageUrl: 'https://hellowshop.com/shopimages/hellozzang/1220040003883.jpg',
+    category: '소품/악세서리',
+    categoryId: 'accessories',
+    tags: ['귀멸의 칼날', '탄지로'],
+    isBest: true,
+  },
+  {
+    id: 'acc-002',
+    name: '주술회전 고죠 사토루 안대',
+    originalPrice: 18000,
+    salePrice: 12000,
+    imageUrl: 'https://hellowshop.com/shopimages/hellozzang/1220040003863.jpg',
+    category: '소품/악세서리',
+    categoryId: 'accessories',
+    tags: ['주술회전', '고죠'],
+    isBest: true,
+  },
+  {
+    id: 'acc-003',
+    name: '원신 파이몬 인형 30cm',
+    originalPrice: 45000,
+    imageUrl: 'https://hellowshop.com/shopimages/hellozzang/1280020005403.jpg',
+    category: '소품/악세서리',
+    categoryId: 'accessories',
+    tags: ['원신', '파이몬'],
+    isNew: true,
+  },
+  {
+    id: 'acc-004',
+    name: '블루아카이브 헤일로 악세서리',
+    originalPrice: 22000,
+    salePrice: 18000,
+    imageUrl: 'https://hellowshop.com/shopimages/hellozzang/0010090002773.jpg',
+    category: '소품/악세서리',
+    categoryId: 'accessories',
+    tags: ['블루아카이브'],
+  },
+
+  // 부츠/신발 카테고리
+  {
+    id: 'boots-001',
+    name: '원신 후타오 코스프레 부츠',
+    originalPrice: 78000,
+    salePrice: 62000,
+    imageUrl: 'https://hellowshop.com/shopimages/hellozzang/0010050000263.jpg',
+    category: '부츠/신발',
+    categoryId: 'boots',
+    tags: ['원신', '후타오'],
+    isBest: true,
+  },
+  {
+    id: 'boots-002',
+    name: '귀멸의 칼날 대원 전투화',
+    originalPrice: 65000,
+    salePrice: 52000,
+    imageUrl: 'https://hellowshop.com/shopimages/hellozzang/0010100009063.jpg',
+    category: '부츠/신발',
+    categoryId: 'boots',
+    tags: ['귀멸의 칼날'],
+  },
+
+  // 피규어/굿즈 카테고리
+  {
+    id: 'figure-001',
+    name: '원신 라이덴 쇼군 피규어 1/7',
+    originalPrice: 245000,
+    salePrice: 198000,
+    imageUrl: 'https://hellowshop.com/shopimages/hellozzang/1220040003883.jpg',
+    category: '피규어/굿즈',
+    categoryId: 'figure',
+    tags: ['원신', '라이덴'],
+    isNew: true,
+    isBest: true,
+  },
+];
+
+export const categories = [
+  { id: 'costume', name: '코스튬', icon: '👗', count: 8 },
+  { id: 'wig', name: '위그', icon: '💇', count: 6 },
+  { id: 'accessories', name: '소품/악세서리', icon: '✨', count: 4 },
+  { id: 'boots', name: '부츠/신발', icon: '👢', count: 2 },
+  { id: 'figure', name: '피규어/굿즈', icon: '🎭', count: 1 },
+];
+
+export const animeFilters = [
+  { id: 'all', name: '전체' },
+  { id: 'genshin', name: '원신', tag: '원신' },
+  { id: 'demon-slayer', name: '귀멸의 칼날', tag: '귀멸의 칼날' },
+  { id: 'blue-archive', name: '블루아카이브', tag: '블루아카이브' },
+  { id: 'jujutsu', name: '주술회전', tag: '주술회전' },
+  { id: 'spy-family', name: '스파이패밀리', tag: '스파이패밀리' },
+  { id: 'oshi-no-ko', name: '최애의 아이', tag: '최애의 아이' },
+  { id: 'honkai', name: '붕괴: 스타레일', tag: '붕괴스타레일' },
+  { id: 'vocaloid', name: '보컬로이드', tag: '보컬로이드' },
+];
