@@ -2,7 +2,7 @@ import Link from 'next/link';
 
 export default function Footer() {
   return (
-    <footer className="bg-gray-100 dark:bg-gray-900 mt-16">
+    <footer className="bg-gray-100 mt-16">
       <div className="max-w-7xl mx-auto px-4 py-12">
         {/* Main Footer */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-8">
@@ -14,7 +14,7 @@ export default function Footer() {
                 HellowShop
               </span>
             </div>
-            <p className="text-sm text-gray-600 dark:text-gray-400 mb-4">
+            <p className="text-sm text-gray-600 mb-4">
               애니메이션 & 코스프레 전문 쇼핑몰
               <br />
               최고의 품질, 합리적인 가격
@@ -41,7 +41,7 @@ export default function Footer() {
           {/* Quick Links */}
           <div>
             <h4 className="font-bold mb-4">쇼핑 안내</h4>
-            <ul className="space-y-2 text-sm text-gray-600 dark:text-gray-400">
+            <ul className="space-y-2 text-sm text-gray-600">
               <li><Link href="#" className="hover:text-[#ff6b9d]">이용약관</Link></li>
               <li><Link href="#" className="hover:text-[#ff6b9d]">개인정보처리방침</Link></li>
               <li><Link href="#" className="hover:text-[#ff6b9d]">배송 안내</Link></li>
@@ -52,7 +52,7 @@ export default function Footer() {
           {/* Customer Service */}
           <div>
             <h4 className="font-bold mb-4">고객센터</h4>
-            <ul className="space-y-2 text-sm text-gray-600 dark:text-gray-400">
+            <ul className="space-y-2 text-sm text-gray-600">
               <li><Link href="#" className="hover:text-[#ff6b9d]">자주 묻는 질문</Link></li>
               <li><Link href="#" className="hover:text-[#ff6b9d]">1:1 문의</Link></li>
               <li><Link href="#" className="hover:text-[#ff6b9d]">공지사항</Link></li>
@@ -63,7 +63,7 @@ export default function Footer() {
           {/* Contact */}
           <div>
             <h4 className="font-bold mb-4">연락처</h4>
-            <ul className="space-y-2 text-sm text-gray-600 dark:text-gray-400">
+            <ul className="space-y-2 text-sm text-gray-600">
               <li className="font-bold text-lg text-[#ff6b9d]">1234-5678</li>
               <li>평일 10:00 - 18:00</li>
               <li>점심 12:00 - 13:00</li>
@@ -73,7 +73,7 @@ export default function Footer() {
         </div>
 
         {/* Bottom Footer */}
-        <div className="border-t border-gray-200 dark:border-gray-800 pt-8 text-center text-sm text-gray-500">
+        <div className="border-t border-gray-200 pt-8 text-center text-sm text-gray-500">
           <p>© 2024 HellowShop. All rights reserved.</p>
           <p className="mt-2">
             사업자등록번호: 123-45-67890 | 통신판매업신고: 제2024-서울강남-0000호

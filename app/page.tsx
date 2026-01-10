@@ -1,111 +1,98 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import HeroBanner from './components/HeroBanner';
+import ProductTypeTabs from './components/ProductTypeTabs';
+import AnimeFilterCards, { animeData } from './components/AnimeFilterCards';
+import ActiveFilterIndicator from './components/ActiveFilterIndicator';
 import ProductCard from './components/ProductCard';
-import CategoryFilter from './components/CategoryFilter';
-import { products, categories, animeFilters } from './data/products';
+import { products, categories } from './data/products';
 
 export default function Home() {
-  const [activeAnimeFilter, setActiveAnimeFilter] = useState('all');
-  const [activeCategoryFilter, setActiveCategoryFilter] = useState('all');
+  const [activeProductType, setActiveProductType] = useState('all');
+  const [selectedAnime, setSelectedAnime] = useState<string[]>([]);
 
-  // 필터링된 상품
-  const filteredProducts = products.filter((product) => {
-    const matchesAnime =
-      activeAnimeFilter === 'all' ||
-      product.tags.some((tag) => {
-        const filter = animeFilters.find((f) => f.id === activeAnimeFilter);
-        return filter?.tag && tag.includes(filter.tag);
-      });
+  // Create anime name lookup
+  const animeNames = useMemo(() => {
+    const names: Record<string, string> = {};
+    animeData.forEach((a) => {
+      names[a.id] = a.name;
+    });
+    return names;
+  }, []);
 
-    const matchesCategory =
-      activeCategoryFilter === 'all' ||
-      product.categoryId === activeCategoryFilter;
+  // Create anime tag lookup
+  const animeTags = useMemo(() => {
+    const tags: Record<string, string> = {};
+    animeData.forEach((a) => {
+      if (a.tag) tags[a.id] = a.tag;
+    });
+    return tags;
+  }, []);
 
-    return matchesAnime && matchesCategory;
-  });
+  // Filter products based on both filters
+  const filteredProducts = useMemo(() => {
+    return products.filter((product) => {
+      // Filter by product type
+      const matchesType = activeProductType === 'all' || product.categoryId === activeProductType;
 
-  // BEST 상품
-  const bestProducts = products.filter((p) => p.isBest);
+      // Filter by anime (if any selected)
+      const matchesAnime =
+        selectedAnime.length === 0 ||
+        selectedAnime.some((animeId) => {
+          const tag = animeTags[animeId];
+          return tag && product.tags.some((t) => t.includes(tag));
+        });
 
-  // NEW 상품
-  const newProducts = products.filter((p) => p.isNew);
+      return matchesType && matchesAnime;
+    });
+  }, [activeProductType, selectedAnime, animeTags]);
+
+  // Toggle anime selection
+  const handleAnimeToggle = (animeId: string) => {
+    setSelectedAnime((prev) =>
+      prev.includes(animeId) ? prev.filter((id) => id !== animeId) : [...prev, animeId]
+    );
+  };
+
+  // Clear all filters
+  const handleClearAll = () => {
+    setActiveProductType('all');
+    setSelectedAnime([]);
+  };
+
+  // Remove single anime filter
+  const handleRemoveAnime = (animeId: string) => {
+    setSelectedAnime((prev) => prev.filter((id) => id !== animeId));
+  };
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen m-0 p-0">
       {/* Hero Banner */}
       <HeroBanner />
 
-      {/* Category Quick Links */}
-      <section className="max-w-7xl mx-auto px-4 py-8">
-        <div className="grid grid-cols-3 sm:grid-cols-5 gap-4">
-          {categories.map((cat) => (
-            <button
-              key={cat.id}
-              onClick={() => setActiveCategoryFilter(cat.id === activeCategoryFilter ? 'all' : cat.id)}
-              className={`flex flex-col items-center gap-2 p-4 rounded-xl transition-all ${
-                activeCategoryFilter === cat.id
-                  ? 'bg-gradient-to-r from-[#ff6b9d] to-[#9c27b0] text-white shadow-lg'
-                  : 'bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700'
-              }`}
-            >
-              <span className="text-2xl sm:text-3xl">{cat.icon}</span>
-              <span className="text-xs sm:text-sm font-medium">{cat.name}</span>
-            </button>
-          ))}
-        </div>
-      </section>
+      {/* Product Type Tabs - Sticky */}
+      <ProductTypeTabs
+        types={categories}
+        activeType={activeProductType}
+        onTypeChange={setActiveProductType}
+      />
 
-      {/* BEST 상품 */}
-      <section className="max-w-7xl mx-auto px-4 py-8">
-        <div className="flex items-center justify-between mb-6">
-          <h2 className="text-xl sm:text-2xl font-bold flex items-center gap-2">
-            <span className="text-[#ff6b9d]">🔥</span>
-            BEST 인기상품
-          </h2>
-          <a href="#" className="text-sm text-gray-500 hover:text-[#ff6b9d]">
-            더보기 →
-          </a>
-        </div>
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
-          {bestProducts.slice(0, 4).map((product) => (
-            <ProductCard key={product.id} {...product} />
-          ))}
-        </div>
-      </section>
+      {/* Anime Filter Cards */}
+      <AnimeFilterCards selectedAnime={selectedAnime} onAnimeToggle={handleAnimeToggle} />
 
-      {/* NEW 신상품 */}
-      <section className="max-w-7xl mx-auto px-4 py-8">
-        <div className="flex items-center justify-between mb-6">
-          <h2 className="text-xl sm:text-2xl font-bold flex items-center gap-2">
-            <span className="text-[#9c27b0]">✨</span>
-            NEW 신상품
-          </h2>
-          <a href="#" className="text-sm text-gray-500 hover:text-[#ff6b9d]">
-            더보기 →
-          </a>
-        </div>
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
-          {newProducts.slice(0, 4).map((product) => (
-            <ProductCard key={product.id} {...product} />
-          ))}
-        </div>
-      </section>
+      {/* Active Filter Indicator */}
+      <ActiveFilterIndicator
+        productType={activeProductType}
+        selectedAnime={selectedAnime}
+        animeNames={animeNames}
+        totalCount={filteredProducts.length}
+        onClearAll={handleClearAll}
+        onRemoveAnime={handleRemoveAnime}
+      />
 
-      {/* 전체 상품 (필터 적용) */}
-      <section className="max-w-7xl mx-auto px-4 py-8" id="all-products">
-        <div className="flex items-center justify-between mb-6">
-          <h2 className="text-xl sm:text-2xl font-bold">전체 상품</h2>
-          <span className="text-sm text-gray-500">{filteredProducts.length}개 상품</span>
-        </div>
-
-        {/* 작품별 필터 */}
-        <div className="mb-6">
-          <CategoryFilter onFilterChange={setActiveAnimeFilter} />
-        </div>
-
-        {/* 상품 그리드 */}
+      {/* Product Grid */}
+      <section className="max-w-7xl mx-auto px-4 pb-12">
         {filteredProducts.length > 0 ? (
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
             {filteredProducts.map((product) => (
@@ -114,13 +101,12 @@ export default function Home() {
           </div>
         ) : (
           <div className="text-center py-16">
-            <p className="text-gray-500 text-lg">해당 조건의 상품이 없습니다.</p>
+            <div className="text-6xl mb-4">🔍</div>
+            <p className="text-gray-500 text-lg mb-2">해당 조건의 상품이 없습니다.</p>
+            <p className="text-gray-400 text-sm mb-6">다른 필터 조합을 시도해보세요.</p>
             <button
-              onClick={() => {
-                setActiveAnimeFilter('all');
-                setActiveCategoryFilter('all');
-              }}
-              className="mt-4 px-6 py-2 bg-[#ff6b9d] text-white rounded-full hover:bg-[#e91e63] transition-colors"
+              onClick={handleClearAll}
+              className="px-6 py-2 bg-gradient-to-r from-[#ff6b9d] to-[#9c27b0] text-white rounded-full hover:shadow-lg transition-shadow"
             >
               필터 초기화
             </button>
@@ -128,28 +114,8 @@ export default function Home() {
         )}
       </section>
 
-      {/* 이벤트 배너 */}
-      <section className="max-w-7xl mx-auto px-4 py-8">
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <div className="bg-gradient-to-r from-[#ff6b9d] to-[#ff8a80] rounded-xl p-6 sm:p-8 text-white">
-            <h3 className="text-lg sm:text-xl font-bold mb-2">신규 회원 혜택</h3>
-            <p className="text-sm opacity-90 mb-4">가입 즉시 10% 할인 쿠폰 증정</p>
-            <button className="px-4 py-2 bg-white text-[#ff6b9d] rounded-full text-sm font-bold hover:shadow-lg transition-shadow">
-              회원가입 하기
-            </button>
-          </div>
-          <div className="bg-gradient-to-r from-[#9c27b0] to-[#7b1fa2] rounded-xl p-6 sm:p-8 text-white">
-            <h3 className="text-lg sm:text-xl font-bold mb-2">리뷰 이벤트</h3>
-            <p className="text-sm opacity-90 mb-4">구매 후기 작성시 포인트 적립</p>
-            <button className="px-4 py-2 bg-white text-[#9c27b0] rounded-full text-sm font-bold hover:shadow-lg transition-shadow">
-              이벤트 참여
-            </button>
-          </div>
-        </div>
-      </section>
-
-      {/* 왜 HellowShop인가? */}
-      <section className="bg-gray-50 dark:bg-gray-900 py-12 sm:py-16">
+      {/* Features Section */}
+      <section className="bg-gray-50 py-12 sm:py-16">
         <div className="max-w-7xl mx-auto px-4">
           <h2 className="text-xl sm:text-2xl font-bold text-center mb-8">
             왜 <span className="text-[#ff6b9d]">HellowShop</span>인가요?

@@ -29,7 +29,7 @@ export default function ProductCard({
   return (
     <div className="group cursor-pointer">
       {/* Image Container */}
-      <div className="relative aspect-square rounded-xl overflow-hidden bg-gray-100 dark:bg-gray-800 mb-3">
+      <div className="relative aspect-square rounded-xl overflow-hidden bg-gray-100 mb-3">
         <Image
           src={imageUrl}
           alt={name}
@@ -60,7 +60,7 @@ export default function ProductCard({
         {/* Quick Actions */}
         <div className="absolute bottom-2 right-2 flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
           <button
-            className="p-2 bg-white dark:bg-gray-900 rounded-full shadow-lg hover:bg-[#ff6b9d] hover:text-white transition-colors"
+            className="p-2 bg-white rounded-full shadow-lg hover:bg-[#ff6b9d] hover:text-white transition-colors"
             aria-label="찜하기"
           >
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -68,7 +68,7 @@ export default function ProductCard({
             </svg>
           </button>
           <button
-            className="p-2 bg-white dark:bg-gray-900 rounded-full shadow-lg hover:bg-[#ff6b9d] hover:text-white transition-colors"
+            className="p-2 bg-white rounded-full shadow-lg hover:bg-[#ff6b9d] hover:text-white transition-colors"
             aria-label="장바구니에 담기"
           >
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -80,7 +80,7 @@ export default function ProductCard({
 
       {/* Product Info */}
       <div className="space-y-1">
-        <p className="text-xs text-gray-500 dark:text-gray-400">{category}</p>
+        <p className="text-xs text-gray-500">{category}</p>
         <h3 className="font-medium text-sm line-clamp-2 group-hover:text-[#ff6b9d] transition-colors">
           {name}
         </h3>
@@ -109,7 +109,7 @@ export default function ProductCard({
             {tags.map((tag) => (
               <span
                 key={tag}
-                className="px-2 py-0.5 bg-gray-100 dark:bg-gray-800 text-xs text-gray-600 dark:text-gray-400 rounded"
+                className="px-2 py-0.5 bg-gray-100 text-xs text-gray-600 rounded"
               >
                 #{tag}
               </span>
