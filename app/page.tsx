@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useMemo } from 'react';
+import Link from 'next/link';
 import HeroBanner from './components/HeroBanner';
 import ProductTypeTabs from './components/ProductTypeTabs';
 import AnimeFilterCards, { animeData } from './components/AnimeFilterCards';
@@ -96,7 +97,9 @@ export default function Home() {
         {filteredProducts.length > 0 ? (
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
             {filteredProducts.map((product) => (
-              <ProductCard key={product.id} {...product} />
+              <Link key={product.id} href={`/products/${product.id}`}>
+                <ProductCard {...product} />
+              </Link>
             ))}
           </div>
         ) : (

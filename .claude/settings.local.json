@@ -18,7 +18,21 @@
       "Bash(file:*)",
       "WebFetch(domain:commons.wikimedia.org)",
       "Bash(ls:*)",
-      "Bash(iconv:*)"
+      "Bash(iconv:*)",
+      "Bash(npx next build)",
+      "Bash(npx next lint)",
+      "Bash(npx next dev)",
+      "Bash(timeout:*)",
+      "Bash(npm install)",
+      "Bash(ping:*)",
+      "Bash(netstat:*)",
+      "Bash(findstr:*)",
+      "Bash(taskkill:*)",
+      "Bash(powershell -Command \"Stop-Process -Id 54448 -Force\")",
+      "Bash(npm run dev:*)",
+      "Bash(powershell -Command \"Get-Process -Name node -ErrorAction SilentlyContinue | Stop-Process -Force\")",
+      "Bash(powershell -Command \"Remove-Item -Path ''\\\\?\\\\C:\\\\Users\\\\jinho\\\\DEV\\\\hellowshop-demo\\\\nul'' -Force -ErrorAction SilentlyContinue\")",
+      "Bash(dir:*)"
     ]
   }
 }
