@@ -27,9 +27,21 @@ app/
 │   ├── Footer.tsx       # 푸터
 │   ├── HeroBanner.tsx   # 자동 슬라이드 히어로 배너
 │   ├── ProductCard.tsx  # 상품 카드 (할인율, 배지 등)
-│   └── CategoryFilter.tsx # 작품별 필터 (가로 스크롤)
+│   ├── ProductTypeTabs.tsx    # 상품 타입별 sticky 탭 필터
+│   ├── AnimeFilterCards.tsx   # 작품별 이미지 카드 필터 (다중 선택)
+│   ├── ActiveFilterIndicator.tsx # 선택된 필터 표시
+│   └── Providers.tsx    # Context providers wrapper
+├── context/
+│   └── CartContext.tsx  # 장바구니 상태 관리 (localStorage 연동)
 ├── data/
 │   └── products.ts      # 상품 데이터 및 카테고리 정의
+├── products/
+│   ├── page.tsx         # 상품 목록 페이지 (필터링, 정렬)
+│   └── [id]/page.tsx    # 상품 상세 페이지 (동적 라우팅)
+├── cart/
+│   └── page.tsx         # 장바구니 페이지
+├── search/
+│   └── page.tsx         # 검색 결과 페이지
 ├── layout.tsx           # 루트 레이아웃
 ├── page.tsx             # 메인 페이지 (상품 필터링 로직)
 └── globals.css          # CSS 변수 및 Tailwind 설정

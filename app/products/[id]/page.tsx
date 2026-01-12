@@ -3,13 +3,16 @@
 import { useState, useMemo } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useParams } from 'next/navigation';
+import { useParams, useRouter } from 'next/navigation';
 import { products } from '@/app/data/products';
 import ProductCard from '@/app/components/ProductCard';
+import { useCart } from '@/app/context/CartContext';
 
 export default function ProductDetailPage() {
   const params = useParams();
+  const router = useRouter();
   const productId = params.id as string;
+  const { addToCart } = useCart();
 
   const product = useMemo(() =>
     products.find((p) => p.id === productId),
@@ -20,6 +23,7 @@ export default function ProductDetailPage() {
   const [isWishlisted, setIsWishlisted] = useState(false);
   const [activeImageIndex, setActiveImageIndex] = useState(0);
   const [isZoomed, setIsZoomed] = useState(false);
+  const [showAddedToast, setShowAddedToast] = useState(false);
 
   // Generate mock additional images (in real app, product would have multiple images)
   const productImages = useMemo(() => {
@@ -123,7 +127,7 @@ export default function ProductDetailPage() {
             </div>
 
             {/* Thumbnail Strip */}
-            <div className="flex gap-3 overflow-x-auto scrollbar-hide pb-2">
+            <div className="flex gap-3 overflow-x-auto scrollbar-hide p-3 -m-1">
               {productImages.map((img, index) => (
                 <button
                   key={index}
@@ -250,14 +254,43 @@ export default function ProductDetailPage() {
                 </svg>
               </button>
 
-              <button className="flex-1 h-14 flex items-center justify-center gap-2 border-2 border-[#ff6b9d] text-[#ff6b9d] font-bold rounded-xl hover:bg-[#ff6b9d]/5 transition-colors">
+              <button
+                onClick={() => {
+                  if (product) {
+                    addToCart({
+                      id: product.id,
+                      name: product.name,
+                      originalPrice: product.originalPrice,
+                      salePrice: product.salePrice,
+                      imageUrl: product.imageUrl,
+                    }, quantity);
+                    setShowAddedToast(true);
+                    setTimeout(() => setShowAddedToast(false), 2000);
+                  }
+                }}
+                className="flex-1 h-14 flex items-center justify-center gap-2 border-2 border-[#ff6b9d] text-[#ff6b9d] font-bold rounded-xl hover:bg-[#ff6b9d]/5 transition-colors"
+              >
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
                 </svg>
                 장바구니
               </button>
 
-              <button className="flex-1 h-14 flex items-center justify-center gap-2 bg-gradient-to-r from-[#ff6b9d] to-[#9c27b0] text-white font-bold rounded-xl hover:shadow-lg hover:shadow-[#ff6b9d]/30 transition-all duration-300 hover:-translate-y-0.5">
+              <button
+                onClick={() => {
+                  if (product) {
+                    addToCart({
+                      id: product.id,
+                      name: product.name,
+                      originalPrice: product.originalPrice,
+                      salePrice: product.salePrice,
+                      imageUrl: product.imageUrl,
+                    }, quantity);
+                    router.push('/cart');
+                  }
+                }}
+                className="flex-1 h-14 flex items-center justify-center gap-2 bg-gradient-to-r from-[#ff6b9d] to-[#9c27b0] text-white font-bold rounded-xl hover:shadow-lg hover:shadow-[#ff6b9d]/30 transition-all duration-300 hover:-translate-y-0.5"
+              >
                 바로구매
               </button>
             </div>
@@ -365,7 +398,21 @@ export default function ProductDetailPage() {
             </svg>
           </button>
 
-          <button className="flex-1 h-12 flex items-center justify-center gap-2 bg-gradient-to-r from-[#ff6b9d] to-[#9c27b0] text-white font-bold rounded-xl">
+          <button
+            onClick={() => {
+              if (product) {
+                addToCart({
+                  id: product.id,
+                  name: product.name,
+                  originalPrice: product.originalPrice,
+                  salePrice: product.salePrice,
+                  imageUrl: product.imageUrl,
+                }, quantity);
+                router.push('/cart');
+              }
+            }}
+            className="flex-1 h-12 flex items-center justify-center gap-2 bg-gradient-to-r from-[#ff6b9d] to-[#9c27b0] text-white font-bold rounded-xl"
+          >
             {(currentPrice * quantity).toLocaleString()}원 구매하기
           </button>
         </div>
@@ -373,6 +420,23 @@ export default function ProductDetailPage() {
 
       {/* Bottom padding for mobile sticky bar */}
       <div className="h-20 lg:hidden" />
+
+      {/* Toast notification */}
+      {showAddedToast && (
+        <div className="fixed bottom-24 lg:bottom-8 left-1/2 -translate-x-1/2 z-50 animate-fade-in px-4 w-full max-w-sm">
+          <div className="flex items-center justify-between gap-3 px-4 py-3 bg-gray-900 text-white rounded-xl shadow-lg">
+            <div className="flex items-center gap-2">
+              <svg className="w-5 h-5 text-green-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+              </svg>
+              <span className="text-sm">담기 완료!</span>
+            </div>
+            <Link href="/cart" className="text-[#ff6b9d] text-sm font-bold hover:underline flex-shrink-0">
+              장바구니 →
+            </Link>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
