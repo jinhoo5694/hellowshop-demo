@@ -32,7 +32,10 @@
       "Bash(npm run dev:*)",
       "Bash(powershell -Command \"Get-Process -Name node -ErrorAction SilentlyContinue | Stop-Process -Force\")",
       "Bash(powershell -Command \"Remove-Item -Path ''\\\\?\\\\C:\\\\Users\\\\jinho\\\\DEV\\\\hellowshop-demo\\\\nul'' -Force -ErrorAction SilentlyContinue\")",
-      "Bash(dir:*)"
+      "Bash(dir:*)",
+      "Bash(git commit -m \"$\\(cat <<''EOF''\nfeat: 장바구니, 검색, 상품목록 페이지 구현\n\n- 장바구니 Context + localStorage 연동\n- 장바구니 페이지 \\(/cart\\) - 수량변경, 삭제, 결제UI\n- 검색 기능 \\(/search\\) - 상품명/태그 검색\n- 상품 목록 페이지 \\(/products\\) - 필터링, 정렬\n- 상품 상세페이지 장바구니 추가 기능\n- Header에 장바구니 개수 표시\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>\nEOF\n\\)\")",
+      "Bash(git push)",
+      "Bash(git push:*)"
     ]
   }
 }
